@@ -1,0 +1,82 @@
+{% load staticfiles %}
+{% load lab3_args %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Lab3{% endblock %}</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap-dropdown.js">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/grid.css' %}">
+</head>
+<body>
+<script src="{% static 'bootstrap/js/grid.js' %}"></script>
+{% block navbar %}
+    <div class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">Lab3</a>
+            </div>
+            <div>
+                <ul class="nav navbar-nav">
+                    <li><a href="#">Your link</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    {% if user_name == None %}
+                        <li><a href="/register/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                        <li><a href="/register/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    {% else %}
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true"
+                               aria-expanded="false">Hello, {{ user_name }} <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Room</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="/register/logout">Exit</a></li>
+                            </ul>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+<div>
+    {% block content %}
+        <div class="container">
+            <div class="row">
+                <section id="pinBoot">
+                    {% for product in products %}
+
+
+                        <article class="white-panel"><img src="http://i.imgur.com/sDLIAZD.png" alt="">
+                            <h4><a href="#">{{ product.name }}</a></h4>
+                            <ul>
+                                {% for recall in product.id|get_recalls %}
+                                    <li>{{ recall.text }}</li>
+                                {% endfor %}
+                            </ul>
+                        </article>
+                    {% endfor %}
+                </section>
+                <hr>
+            </div>
+            <p>
+                <a href="http://validator.w3.org/check?uri=http%3A%2F%2Fbootsnipp.com%2Fiframe%2FZkk0O" target="_blank">
+                    <small>HTML</small>
+                    <sup>5</sup></a>
+                <br>
+                <br>
+            </p>
+
+        </div>
+    {% endblock %}
+</div>
+</body>
+</html>
