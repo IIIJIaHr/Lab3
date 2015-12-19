@@ -24,12 +24,23 @@ class Category(models.Model):
         return result
 
 
+class City(models.Model):
+    name = models.CharField(max_length=30)
+
+    def __unicode__(self):
+        result = (
+            u'{name}'
+        ).format(name=self.name)
+        return result
+
+
 class Product(models.Model):
     name = models.CharField(max_length=30)
     price = models.IntegerField()
     weight = models.IntegerField()
     manufacture = models.ForeignKey(Manufacture)
     category = models.ForeignKey(Category)
+    city = models.ForeignKey(City)
 
     def __unicode__(self):
         result = (

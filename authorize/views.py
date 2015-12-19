@@ -19,8 +19,6 @@ class RegisterFormView(FormView):
         return super(RegisterFormView, self).form_valid(form)
 
 
-
-
 class LoginFormView(FormView):
     form_class = AuthenticationForm
     success_url = '/'

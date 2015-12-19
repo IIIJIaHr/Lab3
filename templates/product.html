@@ -1,0 +1,57 @@
+{% extends 'home.html' %}
+{% block title %}{{ product.name }}{% endblock %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="panel-group col-sm-9">
+                <div class="panel panel-default">
+                    <div class="panel-body">{{ product.name }}</div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-body">Weignt: {{ product.weight }}</div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-body">Price: {{ product.price }}</div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-body">Manufacture: {{ product.manufacture }}</div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-body">Category: {{ product.category }}</div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-9 col-sm-offset-3">
+            {% if user_name != None %}
+                <h4>Leave a Recall:</h4>
+                <form accept-charset="UTF-8" role="form" method="post">
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        <textarea id="text" name="text" class="form-control" rows="3" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success">Submit</button>
+                </form>
+            {% endif %}
+            <br><br>
+
+            <p><span class="badge">{{ recalls|length }}</span> Recalls:</p><br>
+
+            <div class="row">
+                {% for recall in recalls %}
+                    <div class="col-sm-9 col-sm-offset-1">
+                        <h4>{{ recall.user_id }}
+                        </h4>
+
+                        <p>{{ recall.text|linebreaks }}</p>
+                        <br><br>
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+    </div>
+{% endblock %}
